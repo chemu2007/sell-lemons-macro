@@ -3,25 +3,25 @@
 1. Download the entire zip file from this repo and extract it to your desired location
 2. If you do not have AutoHotkey already installed, I have included the setup for the version that I edit
 3. Open userconfig.ahk in Notepad, here you can change the variables if needed
-  4. UI variation = What variation of the UI that pops up when you press the up arrow to reveal the remote buy purchase
-     Variation 1 = 5/5 UI icons are present
-     Variation 2 = 3/5 UI icons are present
-     Variation 3 = 4/5 UI icons are present
+  4. UI variation = What variation of the UI that pops up when you press the up arrow to reveal the remote buy purchases.
+     Variation 1 = 5/5 UI icons are present.
+     Variation 2 = 3/5 UI icons are present.
+     Variation 3 = 4/5 UI icons are present.
      (If you are F2P, which there currently isn't support for, you would pick the variation AFTER buying remote buy.)
- 5. seconds_delay: Amount of seconds before macro believes a problem has happened and will start auto-fixing.
+ 6. seconds_delay: Amount of seconds before macro believes a problem has happened and will start auto-fixing.
      Default is 25 seconds, minimum is 25 seconds. Unless you are laggy, you should be able to stay on 25ms
- 6. Screen_width and screen_height:
-     Based on your screen's resolution. If you're running on 2560x1440, put screen_width to 2560 and screen_height to 1440
+ 7. Screen_width and screen_height:
+     Based on your screen's resolution. If you're running on 2560x1440, put screen_width to 2560 and screen_height to 1440.
      If you're running on 1920x1080, put screen_width to 1920 and screen_height to 1080. Currently only 16:9 displays are supported.
- 7. Updatespeed : The rate in which the seconds are updated. Lower values mean more precise inputs at a cost of potentially lagging your computer.
+ 8. Updatespeed: The rate in which the seconds are updated. Lower values mean more precise inputs at a cost of potentially lagging your computer.
     Default is 100ms, if you are lagging, switch it to 1000ms. Recommended to stay between 100ms and 1000ms.
- 8. reconnectoption & serverlink : If you wish to have Roblox to automatically relaunch in the event of an error it cannot fix without relaunching, set this to true.
-    If reconnectoption is set to true, you must have a valid Roblox private server link in serverlink
- 9. Optional settings, foreverpurchases, goal, webhook_msg, your_discord_user_id : These are optional settings and only known if you have a webhook in webhook_msg
-    Foreverpurchases: Put your foreverpurchase amount here and it will automatically go up in the stats to show your ascension count
-    Goal: Put an ascension goal here and you will be able to see an ETA until you hit said goal in the webhook
+ 9. reconnectoption & serverlink : If you wish to have Roblox to automatically relaunch in the event of an error it cannot fix without relaunching, set this to true.
+    If reconnectoption is set to true, you must have a valid Roblox private server link in serverlink.
+ 10. Optional settings, foreverpurchases, goal, webhook_msg, your_discord_user_id: These are optional settings and only known if you have a webhook in webhook_msg.
+    Foreverpurchases: Put your foreverpurchase amount here and it will automatically go up in the stats to show your ascension count.
+    Goal: Put an ascension goal here and you will be able to see an ETA until you hit said goal in the webhook.
     Webhook_msg: Put a valid Discord webhook in here to see your stats directly in your own channel!
-    your_discord_user_id: Put a valid Discord user ID in here to get pinged if the macro fails
+    your_discord_user_id: Put a valid Discord user ID in here to get pinged if the macro fails.
 
 Error/Exit codes:
 
