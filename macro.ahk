@@ -4,7 +4,7 @@
 SendMode "Event"
 CoordMode("Pixel", "Window")
 
-version := "2.0 DEV"
+version := "2.0 GITHUB"
 seconds := 0
 breaks := 0
 consqbreaks := 0
