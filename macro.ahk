@@ -35,6 +35,7 @@ okay_x := 0
 okay_y := 0
 f2p_mode := false ; Currently does NOTHING
 
+ToolTip("F1 to start, F2 to pause/unpause, and ESC to exit")
 SetTimer(CheckRobloxClosed, 500)
 
 FreeToPlayMode(){
@@ -669,14 +670,18 @@ F1::
     global new_x_upgrade, new_y_upgrade, new_x_complete, new_y_complete, scalex, scaley, running
     global AutoRejoin, RobloxWasRunning, RobloxClosed, reconnectoption, updatespeed, version
 
+    ToolTip("Starting macro...`nChecking configuration and Roblox...")
+
     if (screen_width * 9 != screen_height * 16)
     {
+        ToolTip()
         MsgBox "This macro requires a 16:9 display. Make sure you put in the correct coordinates!"
         ExitApp()
     }
 
     if reconnectoption && ServerLink = ""
     {
+        ToolTip()
         MsgBox "Reconnect is enabled, but ServerLink is blank.`n`nPlease either disable Reconnect or enter a private server link in ServerLink."
         ExitApp()
     }
@@ -695,6 +700,7 @@ F1::
 
     if !RobloxProcess
     {
+        ToolTip()
         MsgBox "Roblox could not be detected. Please open Roblox and join the server before pressing F1."
         SetTimer(Update, 0)
         return
@@ -706,6 +712,7 @@ F1::
 
     if !hwnd
     {
+        ToolTip()
         MsgBox "Roblox process was detected, but its window could not be found."
         SetTimer(Update, 0)
         return
@@ -718,6 +725,7 @@ F1::
     }
     catch
     {
+        ToolTip()
         MsgBox "Failed to activate the Roblox window."
         SetTimer(Update, 0)
         return
@@ -726,6 +734,8 @@ F1::
     FullscreenRoblox()
 
     UIFix()
+
+    ToolTip("Macro started!`nVersion: " version "`nReconnect: " (reconnectoption ? "Enabled" : "Disabled"))
 
     running := true
     seconds := 0
