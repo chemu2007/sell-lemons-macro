@@ -73,7 +73,7 @@ If both are correct and the macro is still stuck, message ".chemu." on Discord w
 
 ## How to interpret the webhook
 
-### Example webhook:
+### Example webhook: (webhook taken from version 2.0.3)
 
 ```text
 -# 🟢 T/A: 10.24s Session: 11 Total: 131,722
