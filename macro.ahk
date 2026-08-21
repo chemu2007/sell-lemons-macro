@@ -4,7 +4,7 @@
 SendMode "Event"
 CoordMode("Pixel", "Window")
 
-version := "2.0 GITHUB"
+version := "2.0.1"
 seconds := 0
 breaks := 0
 consqbreaks := 0
@@ -137,10 +137,11 @@ UIFix(){
 }
 
 Update(){
-    global seconds, fullseconds, running, updatespeed
+    global seconds, fullseconds, running, updatespeed, totalruntime
     if running = true {
         seconds := seconds + (updatespeed/1000)
         fullseconds := fullseconds + (updatespeed/1000)
+        totalruntime := Round(totalruntime + (updatespeed/1000), 3)
         ToolTip(Round(seconds) ", " Round(fullseconds))
     }
 }
@@ -528,7 +529,7 @@ FullscreenRoblox()
 Macro() {
     global seconds, breaks, consqbreaks, sessionascensions, totalasc, startTime, fullseconds, goal, estimatedtime, your_discord_user_id, consqbreakslimit, reconnectoption
     global new_x_upgrade, new_y_upgrade, new_x_complete, new_y_complete, scalex, scaley, corrected_x_asc, corrected_y_asc, seconds_delay, restartattempts, reconnect_x, reconnect_y
-    global okay_x, okay_y
+    global okay_x, okay_y, totalruntime
 
     Loop {
         RobloxProcess := GetRobloxProcess()
@@ -574,12 +575,14 @@ Macro() {
                 sessionascensions++
                 totalasc++
                 SaveForeverPurchases(totalasc - 399)
+                SaveTotalRuntime(totalruntime)
                 restartattempts := 0
 
                 CalculateThis()
 
                 SendWebhook("-# 🟢 T/A: " Round((fullseconds/sessionascensions), 2) "s Session: " Comma(sessionascensions) " Total: " Comma(totalasc) "`n"
                 "-# Current session time: " SecondsToDHMS(fullseconds) "`n"
+                "-# Total runtime: " SecondsToDHMS(totalruntime) "`n"
                 "-# Uptime: " Format("{:.2f}", (sessionascensions / (breaks + sessionascensions)) * 100) "% EST Daily pace: " Comma(Round(86400 / (fullseconds/sessionascensions))) "`n"
                 "-# " Comma(totalasc) "/" Comma(goal) " (" Comma((goal - totalasc)) " left) " "T/R: " Round(seconds, 1) "s`n"
                 "-# ETA: " estimatedtime ", " SecondsToDHMS(Floor((goal - totalasc) * (fullseconds/sessionascensions))) "`n"
@@ -658,6 +661,20 @@ SaveForeverPurchases(value) {
         content,
         "m)^foreverpurchases\s*:=.*$",
         "foreverpurchases := " value
+    )
+
+    FileDelete(configFile)
+    FileAppend(content, configFile)
+}
+
+SaveTotalRuntime(value) {
+    configFile := A_ScriptDir "\userconfig.ahk"
+    content := FileRead(configFile)
+
+    content := RegExReplace(
+        content,
+        "m)^totalruntime\s*:=.*$",
+        "totalruntime := " value
     )
 
     FileDelete(configFile)
