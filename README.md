@@ -71,6 +71,51 @@ If the macro becomes stuck at this error, verify the following:
 
 If both are correct and the macro is still stuck, message ".chemu." on Discord with a screenshot of the macro at the error code and I can help.
 
-You can join the discord here: [https://discord.gg/SXeWNaZR9J](https://discord.gg/SXeWNaZR9J)
+## How to interpret the webhook
+
+### Example webhook:
+
+```text
+-# 🟢 T/A: 10.24s Session: 11 Total: 131,722
+-# **---------------------------------**
+-# Current session time: 0d 00h 01m 53s
+-# Total runtime: 0d 01h 35m 17s
+-# Uptime: 100.00% EST Daily pace: 8,440
+-# **---------------------------------**
+-# 131,722/250,000 (118,278 left) T/R: 10.3s
+-# **---------------------------------**
+-# ETA: 09/04/2026 11:58 AM, 14d 00h 18m 56s
+-# Current time: 08/21/2026 11:39:41 AM
+-# **---------------------------------**
+```
+
+* **T/A:** Average Time per Ascension. Takes every ascension in the current session and calculates the average time per ascension.
+
+* **Session:** Your current session ascensions. Starts at 0 and increases by 1 every successful ascension.
+
+* **Total:** Your total ascension count. This is calculated from the `foreverpurchases` variable + 399.
+
+* **Current session time:** The amount of time the current session has been running. This starts at 0 and is displayed in days, hours, minutes, and seconds.
+
+* **Total runtime:** The persistent amount of time the macro has been running. This increases every time the macro runs and is saved whenever an ascension occurs.
+
+* **Uptime:** The percentage of the session where the macro successfully completed an ascension. This is calculated using successful ascensions compared to successful ascensions + breaks.
+
+* **EST Daily pace:** The estimated number of ascensions the macro could complete in 24 hours based on the current session's average T/A. This calculation uses the full-precision T/A rather than the rounded T/A displayed above.
+
+* **131,722/250,000:** Your current total ascensions / your configured ascension goal.
+
+* **(118,278 left):** The number of ascensions remaining until the configured goal is reached.
+
+* **T/R:** Time per Run. Shows how long it took the macro to reach the current ascension. This can be useful for diagnosing potential network instability or unusually slow ascensions.
+
+* **ETA:** The estimated date and time when the configured ascension goal will be reached. The time is displayed using your device's local timezone.
+
+* **14d 00h 18m 56s:** The estimated amount of time remaining until the configured ascension goal is reached, based on the current T/A.
+
+* **Current time:** Your device's current local date and time. The format is Month / Day / Year Hours : Minutes : Seconds AM/PM.
+
+You can join the Discord here: https://discord.gg/SXeWNaZR9J
 
 **Last updated August 21st, 2026**
+
