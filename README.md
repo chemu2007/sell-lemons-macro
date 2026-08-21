@@ -67,7 +67,7 @@ If the macro becomes stuck at this error, verify the following:
 * You can access roblox.com normally on a web browser.
 * Your serverLink is a valid Roblox private server link.
 
-If both are correct and the macro is still stuck, message chemu with a screenshot of the macro at the error code and I can help.
+If both are correct and the macro is still stuck, message ".chemu." on Discord with a screenshot of the macro at the error code and I can help.
 
 You can join the discord here: https://discord.gg/SXeWNaZR9J
 
