@@ -4,6 +4,7 @@
 ; Text must be wrapped in quotation marks ("")
 ; Example: number := 100
 ; Example: text := "hello"
+; Exception: True/False such as reconnectoption
 ; webhook_msg and ServerLink must be wrapped in quotation marks
 
 ui_variation := 1
