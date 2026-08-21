@@ -4,7 +4,7 @@
 SendMode "Event"
 CoordMode("Pixel", "Window")
 
-version := "2.0.1"
+version := "2.0.2"
 seconds := 0
 breaks := 0
 consqbreaks := 0
