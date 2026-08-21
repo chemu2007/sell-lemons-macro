@@ -1,6 +1,6 @@
 # How to use
 
-1. Download the entire zip file from this repo and extract it to your desired location.
+1. Go to the [Releases](https://github.com/chemu2007/sell-lemons-macro/releases) page and download the latest release. Extract the ZIP file to your desired location.
 
 2. If you do not have AutoHotkey already installed, I have included the setup for the version that I edit.
 
