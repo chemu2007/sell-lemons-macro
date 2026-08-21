@@ -69,7 +69,7 @@ If the macro becomes stuck at this error, verify the following:
 * You can access roblox.com normally on a web browser.
 * Your serverLink is a valid Roblox private server link.
 
-If both are correct and the macro is still stuck, message ".chemu." on Discord with a screenshot of the macro at the error code and I can help.
+If both are correct and the macro is still stuck, message ".chemu." on Discord with your `userconfig.ahk` and error code. 
 
 ## How to interpret the webhook
 
