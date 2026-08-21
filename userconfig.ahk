@@ -15,3 +15,5 @@ foreverpurchases := 0
 goal := 0
 webhook_msg := ""
 your_discord_user_id := 0
+
+totalruntime := 0
