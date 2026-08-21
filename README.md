@@ -28,15 +28,17 @@
 
      Default is 100ms, if you are lagging, switch it to 1000ms. Recommended to stay between 100ms and 1000ms.
 
-   * **reconnectoption & serverlink:** If you wish to have Roblox to automatically relaunch in the event of an error it cannot fix without relaunching, set this to true.
+   * **reconnectoption & serverlink:** If you wish to have Roblox automatically relaunch in the event of an error it cannot fix without relaunching, set this to true.
 
      If reconnectoption is set to true, you must have a valid Roblox private server link in serverlink.
 
-   * **Optional settings, foreverpurchases, goal, webhook_msg, your_discord_user_id:** These are optional settings and only known if you have a webhook in webhook_msg.
+   * **Optional settings, foreverpurchases, goal, totalruntime, webhook_msg, your_discord_user_id:** These are optional settings and only known if you have a webhook in webhook_msg.
 
      * **Foreverpurchases:** Put your foreverpurchase amount here and it will automatically go up in the stats to show your ascension count.
 
      * **Goal:** Put an ascension goal here and you will be able to see an ETA until you hit said goal in the webhook.
+
+     * **Totalruntime:** Put your previous total runtime here if you are continuing from another installation or configuration. This is based off the total number of seconds the macro has been running and is automatically updated while the macro is running.
 
      * **Webhook_msg:** Put a valid Discord webhook in here to see your stats directly in your own channel!
 
@@ -69,6 +71,6 @@ If the macro becomes stuck at this error, verify the following:
 
 If both are correct and the macro is still stuck, message ".chemu." on Discord with a screenshot of the macro at the error code and I can help.
 
-You can join the discord here: https://discord.gg/SXeWNaZR9J
+You can join the discord here: [https://discord.gg/SXeWNaZR9J](https://discord.gg/SXeWNaZR9J)
 
 **Last updated August 21st, 2026**
