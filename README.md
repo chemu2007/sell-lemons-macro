@@ -16,7 +16,7 @@
 
    * **seconds_delay:** Amount of seconds before macro believes a problem has happened and will start auto-fixing.
 
-     Default is 25 seconds, minimum is 25 seconds. Unless you are laggy, you should be able to stay on 25ms.
+     Default is 25 seconds, minimum is 25 seconds. Unless you are laggy, you should be able to stay on 25s.
 
    * **Screen_width and screen_height:**
 
