@@ -42,6 +42,12 @@
 
      * **your_discord_user_id:** Put a valid Discord user ID in here to get pinged if the macro fails.
 
+4. **Controls:**
+
+   * **F1** to start
+   * **F2** to pause/unpause
+   * **ESC** to exit
+
 ## Error/Exit codes:
 
 **Exit code 1:** User exited macro themselves.
