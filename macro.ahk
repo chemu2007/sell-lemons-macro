@@ -4,7 +4,7 @@
 SendMode "Event"
 CoordMode("Pixel", "Window")
 
-version := "2.0.2"
+version := "2.0.3"
 seconds := 0
 breaks := 0
 consqbreaks := 0
@@ -581,12 +581,16 @@ Macro() {
                 CalculateThis()
 
                 SendWebhook("-# 🟢 T/A: " Round((fullseconds/sessionascensions), 2) "s Session: " Comma(sessionascensions) " Total: " Comma(totalasc) "`n"
+                "-# **---------------------------------**`n"
                 "-# Current session time: " SecondsToDHMS(fullseconds) "`n"
                 "-# Total runtime: " SecondsToDHMS(totalruntime) "`n"
                 "-# Uptime: " Format("{:.2f}", (sessionascensions / (breaks + sessionascensions)) * 100) "% EST Daily pace: " Comma(Round(86400 / (fullseconds/sessionascensions))) "`n"
+                "-# **---------------------------------**`n"
                 "-# " Comma(totalasc) "/" Comma(goal) " (" Comma((goal - totalasc)) " left) " "T/R: " Round(seconds, 1) "s`n"
+                "-# **---------------------------------**`n"
                 "-# ETA: " estimatedtime ", " SecondsToDHMS(Floor((goal - totalasc) * (fullseconds/sessionascensions))) "`n"
-                "-# Current time: " FormatTime(A_Now, "MM/dd/yyyy h:mm:ss tt"))
+                "-# Current time: " FormatTime(A_Now, "MM/dd/yyyy h:mm:ss tt") "`n"
+                "-# **---------------------------------**")
 
                 if consqbreaks >= 1 {
                     consqbreaks--
