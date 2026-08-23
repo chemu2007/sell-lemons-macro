@@ -64,6 +64,8 @@
 
 **Error code 6:** Roblox is being force-restarted as part of Error 4's recovery process. The macro will close Roblox, reopen the configured private server, wait for Roblox to launch, and then resume the macro.
 
+**Error code 7:** The macro detected the ascension screen but the ascension confirmation pixel remained detected for 10 seconds. The macro broke out of the ascension detection loop and continued running.
+
 If the macro becomes stuck at this error, verify the following:
 
 * You can access roblox.com normally on a web browser.
