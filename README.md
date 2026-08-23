@@ -22,6 +22,8 @@
 
      (If you are F2P, which there currently isn't support for, you would pick the variation AFTER buying remote buy.)
 
+     **f2p_mode** = If you are free to play, meaning you need to buy remote buy every ascension, enable this
+
    * **seconds_delay:** Amount of seconds before macro believes a problem has happened and will start auto-fixing.
 
      Default is 25 seconds, minimum is 25 seconds. Unless you are laggy, you should be able to stay on 25s.
