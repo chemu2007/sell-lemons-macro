@@ -64,14 +64,14 @@
 
 **Error code 6:** Roblox is being force-restarted as part of Error 4's recovery process. The macro will close Roblox, reopen the configured private server, wait for Roblox to launch, and then resume the macro.
 
-**Error code 7:** The macro detected the ascension screen but the ascension confirmation pixel remained detected for 10 seconds. The macro broke out of the ascension detection loop and continued running.
-
 If the macro becomes stuck at this error, verify the following:
 
 * You can access roblox.com normally on a web browser.
 * Your serverLink is a valid Roblox private server link.
 
 If both are correct and the macro is still stuck, message ".chemu." on Discord with your `userconfig.ahk` and error code. 
+
+**Error code 7:** The macro detected the ascension screen but the ascension confirmation pixel remained detected for 10 seconds. The macro broke out of the ascension detection loop and continued running.
 
 ## How to interpret the webhook
 
