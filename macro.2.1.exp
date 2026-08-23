@@ -34,6 +34,9 @@ reconnect_y := 0
 okay_x := 0
 okay_y := 0
 
+if !IsSet(f2p_mode)
+    f2p_mode := false
+
 ToolTip("F1 to start, F2 to pause/unpause, and ESC to exit. Press F5 to test roblox relaunching")
 SetTimer(CheckRobloxClosed, 500)
 
