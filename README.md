@@ -122,5 +122,3 @@
 
 You can join the Discord here: https://discord.gg/SXeWNaZR9J
 
-**Last updated August 21st, 2026**
-
