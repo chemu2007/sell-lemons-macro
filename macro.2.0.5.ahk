@@ -4,7 +4,7 @@
 SendMode "Event"
 CoordMode("Pixel", "Window")
 
-version := "2.0.4"
+version := "2.0.5"
 seconds := 0
 breaks := 0
 consqbreaks := 0
@@ -35,7 +35,7 @@ okay_x := 0
 okay_y := 0
 f2p_mode := false ; Currently does NOTHING
 
-ToolTip("F1 to start, F2 to pause/unpause, and ESC to exit")
+ToolTip("F1 to start, F2 to pause/unpause, and ESC to exit. Press F5 to test roblox relaunching")
 SetTimer(CheckRobloxClosed, 500)
 
 FreeToPlayMode(){
@@ -785,6 +785,31 @@ F2::{
         SetTimer(Update, updatespeed)
         Pause(-1)
     }
+}
+
+F5::{
+    global AutoRejoin, RobloxWasRunning, RobloxClosed
+
+    if !reconnectoption
+    {
+        ToolTip("F5 test failed:`nReconnect is disabled in userconfig.ahk")
+        Sleep(3000)
+        ToolTip()
+        return
+    }
+
+    AutoRejoin := true
+    RobloxWasRunning := true
+    RobloxClosed := false
+
+    ToolTip("F5 test: Restarting Roblox...`nClosing Roblox and relaunching configured server...")
+    SendWebhook("🧪 F5 test: manually testing Roblox relaunch...")
+
+    RestartRoblox()
+
+    ToolTip("F5 test complete.")
+    Sleep(3000)
+    ToolTip()
 }
 
 Esc::{
