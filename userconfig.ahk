@@ -12,6 +12,11 @@ ui_variation := 1
 ; UI variation 2 = 3/5 UI icons are on the screen
 ; UI variation 3 = 4/5 UI icons are on the screen
 
+f2p_mode := false
+; Enable Free To Play (F2P) mode if you do not own remote buy
+; Disable it if you have remote buy bought
+; Enable which UI variation you have AFTER buying remote buy
+
 seconds_delay := 25
 ; Delay, in seconds, before the macro runs its auto-fix
 ; Default is 25, minimum is 25
