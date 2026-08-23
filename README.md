@@ -70,14 +70,7 @@
 
 **Error code 5:** The macro has not had an ascension since seconds_delay and will now attempt to auto-fix itself. If this is happening multiple times while you're just regularly ascending, try making seconds_delay longer.
 
-**Error code 6:** Roblox is being force-restarted as part of Error 4's recovery process. The macro will close Roblox, reopen the configured private server, wait for Roblox to launch, and then resume the macro. (Roblox relaunch test forcefully triggers this code)
-
-If the macro becomes stuck at this error, verify the following:
-
-* You can access roblox.com normally on a web browser.
-* Your serverLink is a valid Roblox private server link.
-
-If both are correct and the macro is still stuck, message ".chemu." on Discord with your `userconfig.ahk` and error code. 
+**Error code 6:** Roblox is being force-restarted as part of Error 4's recovery process. The macro will close Roblox, reopen the configured private server, wait for Roblox to launch, and then resume the macro. (Roblox relaunch test forcefully triggers this code) (If the macro becomes stuck at this error, verify that your serverLink is a valid Roblox private server link.)
 
 **Error code 7:** The macro detected the ascension screen but the ascension confirmation pixel remained detected for 10 seconds. The macro broke out of the ascension detection loop and continued running.
 
