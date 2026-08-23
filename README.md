@@ -1,3 +1,11 @@
+# How to update
+
+1. Download latest version of `macro.ahk`
+
+2. Replace your version of `macro.ahk` with the latest version
+
+3. Check if there are any additions to `userconfig.ahk` and update accordingly
+
 # How to use
 
 1. Go to the [Releases](https://github.com/chemu2007/sell-lemons-macro/releases) page and download the latest release. Extract the ZIP file to your desired location.
