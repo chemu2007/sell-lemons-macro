@@ -4,7 +4,7 @@
 SendMode "Event"
 CoordMode("Pixel", "Window")
 
-version := "2.0.5"
+version := "2.1 EXPERIMENTAL"
 seconds := 0
 breaks := 0
 consqbreaks := 0
@@ -33,13 +33,30 @@ reconnect_x := 0
 reconnect_y := 0
 okay_x := 0
 okay_y := 0
-f2p_mode := false ; Currently does NOTHING
 
 ToolTip("F1 to start, F2 to pause/unpause, and ESC to exit. Press F5 to test roblox relaunching")
 SetTimer(CheckRobloxClosed, 500)
 
 FreeToPlayMode(){
-    ; Currently does NOTHING
+    SetMouseDelay(10)
+    global scalex, scaley, seconds
+    Click(scalex * 1845, scaley * 474)
+    Click(scalex * 1273, scaley * 760)
+    Sleep(800)
+    Click(scalex * 781, scaley * 655)
+    Sleep(1000)
+    Click(scalex * 685, scaley * 17)
+    Click(scalex * 1100, scaley * 225)
+    MouseMove(scalex * 1247, scaley * 321)
+    SendInput "{LButton down}"
+    MouseMove(scalex * 1247, scaley * 489)
+    SendInput "{LButton up}"
+    Click(scalex * 918, scaley * 515)
+    Click(scalex * 807, scaley * 637)
+    Click(scalex * 918, scaley * 515)
+    Click(scalex * 807, scaley * 637)
+    Click(scalex * 918, scaley * 515)
+    Click(scalex * 1278, scaley * 154)
 }
 
 ConvertServerLink(link) {
@@ -529,7 +546,7 @@ FullscreenRoblox()
 Macro() {
     global seconds, breaks, consqbreaks, sessionascensions, totalasc, startTime, fullseconds, goal, estimatedtime, your_discord_user_id, consqbreakslimit, reconnectoption
     global new_x_upgrade, new_y_upgrade, new_x_complete, new_y_complete, scalex, scaley, corrected_x_asc, corrected_y_asc, seconds_delay, restartattempts, reconnect_x, reconnect_y
-    global okay_x, okay_y, totalruntime
+    global okay_x, okay_y, totalruntime, f2p_mode
 
     Loop {
         RobloxProcess := GetRobloxProcess()
@@ -605,6 +622,11 @@ Macro() {
 
                 seconds := 0
                 startTime := 0
+
+                if f2p_mode = true {
+                    Sleep(800)
+                    FreeToPlayMode()
+                }
             }
         }
         else {
@@ -695,7 +717,7 @@ F1::
 {
     global seconds, breaks, consqbreaks, sessionascensions, totalasc, startTime, fullseconds, goal, estimatedtime, your_discord_user_id
     global new_x_upgrade, new_y_upgrade, new_x_complete, new_y_complete, scalex, scaley, running
-    global AutoRejoin, RobloxWasRunning, RobloxClosed, reconnectoption, updatespeed, version
+    global AutoRejoin, RobloxWasRunning, RobloxClosed, reconnectoption, updatespeed, version, f2p_mode
 
     ToolTip("Starting macro...`nChecking configuration and Roblox...")
 
@@ -768,7 +790,11 @@ F1::
     seconds := 0
     startTime := A_TickCount
 
-    SendWebhook("Macro started. Version: " version " `nReconnectoption: " reconnectoption)
+    SendWebhook("Macro started. Version: " version " `nReconnectoption: " reconnectoption "`nF2P mode: " f2p_mode)
+
+    if f2p_mode = true {
+        FreeToPlayMode()
+    }
 
     Macro()
 }
