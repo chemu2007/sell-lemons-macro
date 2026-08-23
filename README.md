@@ -62,7 +62,7 @@
 
 **Error code 5:** The macro has not had an ascension since seconds_delay and will now attempt to auto-fix itself. If this is happening multiple times while you're just regularly ascending, try making seconds_delay longer.
 
-**Error code 6:** Roblox is being force-restarted as part of Error 4's recovery process. The macro will close Roblox, reopen the configured private server, wait for Roblox to launch, and then resume the macro.
+**Error code 6:** Roblox is being force-restarted as part of Error 4's recovery process. The macro will close Roblox, reopen the configured private server, wait for Roblox to launch, and then resume the macro. (Roblox relaunch test forcefully triggers this code)
 
 If the macro becomes stuck at this error, verify the following:
 
