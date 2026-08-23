@@ -4,7 +4,7 @@
 SendMode "Event"
 CoordMode("Pixel", "Window")
 
-version := "2.0.3"
+version := "2.0.4"
 seconds := 0
 breaks := 0
 consqbreaks := 0
@@ -567,9 +567,15 @@ Macro() {
                 Click(Round(scalex * 1256), Round(scaley * 774))
                 Sleep(400)
                 SetMouseDelay(-1)
+                ascensionWaitStart := A_TickCount
 
                 while PixelSearch(&x, &y, corrected_x_asc, corrected_y_asc, corrected_x_asc, corrected_y_asc, 0xFFFFFF, 15) {
                     Click(Round(scalex * 846), Round(scaley * 651))
+                    if A_TickCount - ascensionWaitStart >= 10000 {
+                        SendWebhook("🟡 Ascension screen timeout after 10 seconds. Breaking loop. Error code: 7")
+                        break
+                    }
+
                 }
 
                 sessionascensions++
