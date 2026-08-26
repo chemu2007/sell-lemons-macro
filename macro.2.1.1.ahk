@@ -180,8 +180,18 @@ SendWebhook(type := "ascension", message := "") {
 
     if sessionascensions > 0 {
         averageTime := fullseconds / sessionascensions
-        dailyPace := Round(86400 / averageTime)
-        uptime := (sessionascensions / (breaks + sessionascensions)) * 100
+        if averageTime > 0 {
+            dailyPace := Round(86400 / averageTime)
+        }
+        else {
+            dailyPace := "ERR"
+        }
+        if sessionascensions > 0 {
+            uptime := (sessionascensions / (breaks + sessionascensions)) * 100
+        }
+        else {
+            uptime := "ERR"
+        }
         timeRemaining := Floor((goal - totalasc) * averageTime)
     }
     else {
@@ -248,6 +258,14 @@ SendWebhook(type := "ascension", message := "") {
         case "success":
             authorName := "🔵 Macro status"
             embedColor := 3447003
+        
+        case "pause":
+            authorName := "⏸️ Macro paused"
+            embedColor := 16776960
+        
+        case "resume":
+            authorName := "▶️ Macro resumed"
+            embedColor := 3066993
 
         default:
             authorName := "⚪ Macro"
@@ -380,8 +398,12 @@ CalculateThis() {
     global goal, totalasc, fullseconds, sessionascensions, estimatedtime
 
     ascensionsgoalprogress := goal - totalasc
-
-    averagetime := fullseconds / sessionascensions
+    if sessionascensions > 0 {
+        averagetime := fullseconds / sessionascensions
+    }
+    else {
+        averagetime := 0
+    }
 
     timeleft := ascensionsgoalprogress * averagetime
 
@@ -991,15 +1013,41 @@ F1::
 
 F2::{
     global running, updatespeed
+
     if running = true {
         running := false
         SetTimer(Update, 0)
+
+        SendWebhook(
+            "pause",
+            "Macro paused.`n`nPress F2 to resume."
+        )
+
         Pause(-1)
-    }
-    else if running = false {
+
+        ; Script has been resumed
         running := true
         SetTimer(Update, updatespeed)
+
+        SendWebhook(
+            "resume",
+            "Macro resumed."
+        )
+    }
+    else {
+        running := true
+        SetTimer(Update, updatespeed)
+
+        SendWebhook(
+            "resume",
+            "Macro resumed."
+        )
+
         Pause(-1)
+
+        ; Script has been paused again
+        running := false
+        SetTimer(Update, 0)
     }
 }
 
