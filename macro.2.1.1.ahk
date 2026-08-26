@@ -4,7 +4,7 @@
 SendMode "Event"
 CoordMode("Pixel", "Window")
 
-version := "2.1 EXPERIMENTAL"
+version := "2.1.1"
 seconds := 0
 breaks := 0
 consqbreaks := 0
@@ -170,21 +170,186 @@ Comma(num) {
     return RegExReplace(num, "(?<=\d)(?=(\d{3})+$)", ",")
 }
 
-SendWebhook(msg) {
-    global webhook_msg
+SendWebhook(type := "ascension", message := "") {
+    global webhook_msg, version
+    global fullseconds, totalruntime, sessionascensions, totalasc
+    global breaks, goal, seconds, estimatedtime
 
-    if webhook_msg = "" || webhook_msg = "PUT_YOUR_WEBHOOK_HERE" {
+    if webhook_msg = "" || webhook_msg = "PUT_YOUR_WEBHOOK_HERE"
         return
+
+    if sessionascensions > 0 {
+        averageTime := fullseconds / sessionascensions
+        dailyPace := Round(86400 / averageTime)
+        uptime := (sessionascensions / (breaks + sessionascensions)) * 100
+        timeRemaining := Floor((goal - totalasc) * averageTime)
+    }
+    else {
+        averageTime := 0
+        dailyPace := 0
+        uptime := 100
+        timeRemaining := 0
     }
 
-    ; Escape JSON
-    msg := StrReplace(msg, "\", "\\")
-    msg := StrReplace(msg, '"', '\"')
-    msg := StrReplace(msg, "`r`n", "\n")
-    msg := StrReplace(msg, "`n", "\n")
-    msg := StrReplace(msg, "`r", "\n")
+    remaining := goal - totalasc
 
-    json := '{"content":"' msg '"}'
+    if remaining < 0
+        remaining := 0
+
+    progressPercent := 0
+
+    if goal > 0
+        progressPercent := (totalasc / goal) * 100
+
+    if progressPercent > 100
+        progressPercent := 100
+
+    barLength := 20
+    filled := Round((progressPercent / 100) * barLength)
+
+    if filled > barLength
+        filled := barLength
+
+    empty := barLength - filled
+    progressBar := ""
+
+    Loop filled
+        progressBar .= "█"
+
+    Loop empty
+        progressBar .= "░"
+
+    currentTime := FormatTime(
+        A_Now,
+        "MM/dd/yyyy h:mm:ss tt"
+    )
+
+    switch type {
+        case "ascension":
+            authorName := "🟢 Ascension successful"
+            embedColor := 3066993
+
+        case "start":
+            authorName := "🔵 Macro started"
+            embedColor := 3447003
+
+        case "break":
+            authorName := "🔴 Break detected"
+            embedColor := 15158332
+
+        case "warning":
+            authorName := "🟡 Macro warning"
+            embedColor := 16776960
+
+        case "error":
+            authorName := "🔴 Macro error"
+            embedColor := 15158332
+
+        case "success":
+            authorName := "🔵 Macro status"
+            embedColor := 3447003
+
+        default:
+            authorName := "⚪ Macro"
+            embedColor := 9807270
+    }
+
+    JsonEscape(value) {
+        value := StrReplace(value, "\", "\\")
+        value := StrReplace(value, '"', '\"')
+        value := StrReplace(value, "`r`n", "\n")
+        value := StrReplace(value, "`n", "\n")
+        value := StrReplace(value, "`r", "\n")
+        return value
+    }
+
+    if type = "ascension" {
+
+        json := (
+            '{'
+            '"embeds":['
+                '{'
+                    '"color":' embedColor ','
+                    '"author":{"name":"' JsonEscape(authorName) '"},'
+                    '"fields":['
+
+                        '{'
+                            '"name":"Performance:",'
+                            '"value":"'
+                                'Time per Ascension: ' Round(averageTime, 2) 's\n'
+                                'Time this Ascension: ' Round(seconds, 1) 's\n\n'
+                                'Uptime: ' Format("{:.2f}", uptime) '%\n'
+                                'Daily pace: ' Comma(dailyPace) '/day\n'
+                            '"'
+                        '},'
+
+                        '{'
+                            '"name":"Progress:",'
+                            '"value":"'
+                                Comma(totalasc) ' / ' Comma(goal) ' (' Format("{:.2f}", progressPercent) '%)\n'
+                                progressBar '\n'
+                                Comma(remaining) ' remaining\n'
+                            '"'
+                        '},'
+
+                        '{'
+                            '"name":"Runtime",'
+                            '"value":"'
+                                'Session: ' SecondsToDHMS(fullseconds) '\n'
+                                'Total: ' SecondsToDHMS(totalruntime) '\n'
+                            '"'
+                        '},'
+
+                        '{'
+                            '"name":"ETA",'
+                            '"value":"'
+                                JsonEscape(estimatedtime) '\n'
+                                SecondsToDHMS(timeRemaining) ' remaining\n'
+                            '"'
+                        '}'
+
+                    '],'
+                    '"footer":{"text":"' JsonEscape("V" version ", " currentTime) '"}'
+                '}'
+            ']}'
+        )
+
+    }
+    else {
+
+        json := (
+            '{'
+            '"embeds":['
+                '{'
+                    '"color":' embedColor ','
+                    '"author":{"name":"' JsonEscape(authorName) '"},'
+                    '"description":"' JsonEscape(message) '",'
+                    '"fields":['
+
+                        '{'
+                            '"name":"Progress:",'
+                            '"value":"'
+                                Comma(totalasc) ' / ' Comma(goal) '\n'
+                                progressBar '\n'
+                                Format("{:.2f}", progressPercent) '%\n'
+                                Comma(remaining) ' remaining'
+                            '"'
+                        '},'
+
+                        '{'
+                            '"name":"Runtime",'
+                            '"value":"'
+                                'Session: ' SecondsToDHMS(fullseconds) '\n'
+                                'Total: ' SecondsToDHMS(totalruntime)
+                            '"'
+                        '}'
+
+                    '],'
+                    '"footer":{"text":"' JsonEscape("V" version ", " currentTime) '"}'
+                '}'
+            ']}'
+        )
+    }
 
     try {
         http := ComObject("WinHttp.WinHttpRequest.5.1")
@@ -378,7 +543,10 @@ CheckRobloxClosed()
         if RestartingRoblox
             return
 
-        SendWebhook("🔵 Roblox closed/crashed. Rejoining server...")
+        SendWebhook(
+            "warning",
+            "Roblox closed/crashed. Rejoining server..."
+        )
 
         SetTimer(RejoinServer, -2000)
     }
@@ -418,7 +586,10 @@ RestartRoblox()
     SetTimer(FullscreenRoblox, 0)
     SetTimer(RejoinServer, 0)
 
-    SendWebhook("🔄 Consqbreaks hit 10. Force restarting Roblox... Error code: 6")
+    SendWebhook(
+        "warning",
+        "Consqbreaks hit 10. Force restarting Roblox...`nError code: 6"
+    )
 
     CloseRoblox()
 
@@ -456,12 +627,18 @@ RestartRoblox()
         RobloxClosed := false
         RestartingRoblox := false
 
-        SendWebhook("🔵 Roblox restarted successfully.")
+        SendWebhook(
+            "success",
+            "Roblox restarted successfully."
+        )
     }
     else
     {
         RestartingRoblox := false
-        SendWebhook("🔴 Roblox failed to restart after 20 seconds.")
+        SendWebhook(
+            "error",
+            "Roblox failed to restart after 20 seconds."
+        )
     }
 }
 
@@ -592,7 +769,10 @@ Macro() {
                 while PixelSearch(&x, &y, corrected_x_asc, corrected_y_asc, corrected_x_asc, corrected_y_asc, 0xFFFFFF, 15) {
                     Click(Round(scalex * 846), Round(scaley * 651))
                     if A_TickCount - ascensionWaitStart >= 10000 {
-                        SendWebhook("🟡 Ascension screen timeout after 10 seconds. Breaking loop. Error code: 7")
+                        SendWebhook(
+                            "warning",
+                            "Ascension screen timeout after 10 seconds. Breaking loop.`nError code: 7"
+                        )
                         break
                     }
 
@@ -606,21 +786,11 @@ Macro() {
 
                 CalculateThis()
 
-                SendWebhook("-# 🟢 T/A: " Round((fullseconds/sessionascensions), 2) "s Session: " Comma(sessionascensions) " Total: " Comma(totalasc) "`n"
-                "-# **---------------------------------**`n"
-                "-# Current session time: " SecondsToDHMS(fullseconds) "`n"
-                "-# Total runtime: " SecondsToDHMS(totalruntime) "`n"
-                "-# Uptime: " Format("{:.2f}", (sessionascensions / (breaks + sessionascensions)) * 100) "% EST Daily pace: " Comma(Round(86400 / (fullseconds/sessionascensions))) "`n"
-                "-# **---------------------------------**`n"
-                "-# " Comma(totalasc) "/" Comma(goal) " (" Comma((goal - totalasc)) " left) " "T/R: " Round(seconds, 1) "s`n"
-                "-# **---------------------------------**`n"
-                "-# ETA: " estimatedtime ", " SecondsToDHMS(Floor((goal - totalasc) * (fullseconds/sessionascensions))) "`n"
-                "-# Current time: " FormatTime(A_Now, "MM/dd/yyyy h:mm:ss tt") "`n"
-                "-# **---------------------------------**")
+                SendWebhook("ascension")
 
                 if consqbreaks >= 1 {
                     consqbreaks--
-                    SendWebhook("🟡 Consqbreaks going down. Current consqbreaks: " consqbreaks)
+                    SendWebhook("warning", "Consqbreaks decreased. Current consqbreaks: " consqbreaks)
                 }
 
                 seconds := 0
@@ -644,7 +814,10 @@ Macro() {
 
         if consqbreaks >= consqbreakslimit {
             if reconnectoption = true {
-                SendWebhook("⚠️ <@" your_discord_user_id "> Consqbreaks hit limit of 10, restarting roblox... Error code: 4")
+                SendWebhook(
+                    "warning",
+                    "<@" your_discord_user_id "> Consqbreaks hit the limit of 10. Restarting Roblox...`nError code: 4"
+                )
 
                 consqbreaks := 0
                 seconds := 0
@@ -654,7 +827,10 @@ Macro() {
                 restartattempts++
 
                 if restartattempts >= 4 {
-                    SendWebhook("<@" your_discord_user_id "> 🛑 Roblox failed to recover after 3 restart attempts. Emergency shutdown. Exit code: 3")
+                    SendWebhook(
+                        "error",
+                        "<@" your_discord_user_id "> Roblox failed to recover after 3 restart attempts. Emergency shutdown.`nExit code: 3"
+                    )
                     ExitApp()
                 }
 
@@ -662,7 +838,10 @@ Macro() {
                 continue
             }
             else if reconnectoption = false {
-                SendWebhook("<@" your_discord_user_id "> 🔴 Consqbreaks hit limit of 30, exiting... Exit code: 2")
+                SendWebhook(
+                    "error",
+                    "<@" your_discord_user_id "> Consqbreaks hit the limit of 30. Exiting...`nExit code: 2"
+                )
                 ExitApp()
             }
         }
@@ -679,7 +858,10 @@ Macro() {
             consqbreaks := consqbreaks + 2
             breaks++
 
-            SendWebhook("🔴 Break detected. Consqbreaks: " consqbreaks ". Error code: 5")
+            SendWebhook(
+                "break",
+                "Consqbreaks: " consqbreaks "`nError code: 5"
+            )
         }
 
         SetMouseDelay(-1)
@@ -793,7 +975,12 @@ F1::
     seconds := 0
     startTime := A_TickCount
 
-    SendWebhook("Macro started. Version: " version " `nReconnectoption: " reconnectoption "`nF2P mode: " f2p_mode)
+    SendWebhook(
+            "start",
+            "Version: " version
+            "`nReconnect: " (reconnectoption ? "Enabled" : "Disabled")
+            "`nF2P mode: " (f2p_mode ? "Enabled" : "Disabled")
+        )
 
     if f2p_mode = true {
         FreeToPlayMode()
@@ -832,7 +1019,10 @@ F5::{
     RobloxClosed := false
 
     ToolTip("F5 test: Restarting Roblox...`nClosing Roblox and relaunching configured server...")
-    SendWebhook("🧪 F5 test: manually testing Roblox relaunch...")
+    SendWebhook(
+            "warning",
+            "🧪 F5 test: manually testing Roblox relaunch..."
+        )
 
     RestartRoblox()
 
@@ -842,6 +1032,9 @@ F5::{
 }
 
 Esc::{
-    SendWebhook("Macro exited. Exit code: 1")
+    SendWebhook(
+            "success",
+            "Macro exited.`nExit code: 1"
+        )
     ExitApp()
 }
