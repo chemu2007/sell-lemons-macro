@@ -1014,7 +1014,7 @@ F1::
 F2::{
     global running, updatespeed
 
-    if running = true {
+    if running {
         running := false
         SetTimer(Update, 0)
 
@@ -1024,15 +1024,6 @@ F2::{
         )
 
         Pause(-1)
-
-        ; Script has been resumed
-        running := true
-        SetTimer(Update, updatespeed)
-
-        SendWebhook(
-            "resume",
-            "Macro resumed."
-        )
     }
     else {
         running := true
@@ -1044,10 +1035,6 @@ F2::{
         )
 
         Pause(-1)
-
-        ; Script has been paused again
-        running := false
-        SetTimer(Update, 0)
     }
 }
 
