@@ -20,7 +20,7 @@
      * **Variation 2** = 3/5 UI icons are present.
      * **Variation 3** = 4/5 UI icons are present.
 
-     (If you are F2P, which there currently isn't support for, you would pick the variation AFTER buying remote buy.)
+     (If you are F2P, you would pick the variation AFTER buying remote buy.)
 
      **f2p_mode** = If you are free to play, meaning you need to buy remote buy every ascension, enable this
 
