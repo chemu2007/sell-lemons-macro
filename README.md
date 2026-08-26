@@ -78,47 +78,57 @@
 
 ## How to interpret the webhook
 
-### Example webhook: (webhook taken from version 2.0.3)
+Example
 
-```text
--# 🟢 T/A: 10.24s Session: 11 Total: 131,722
--# **---------------------------------**
--# Current session time: 0d 00h 01m 53s
--# Total runtime: 0d 01h 35m 17s
--# Uptime: 100.00% EST Daily pace: 8,440
--# **---------------------------------**
--# 131,722/250,000 (118,278 left) T/R: 10.3s
--# **---------------------------------**
--# ETA: 09/04/2026 11:58 AM, 14d 00h 18m 56s
--# Current time: 08/21/2026 11:39:41 AM
--# **---------------------------------**
-```
+**🟢 Ascension successful**
 
-* **T/A:** Average Time per Ascension. Takes every ascension in the current session and calculates the average time per ascension.
+**Performance:**
 
-* **Session:** Your current session ascensions. Starts at 0 and increases by 1 every successful ascension.
+Time per Ascension: 9.59s
+Time this Ascension: 9.0s
+Uptime: 99.45%
+Daily pace: 9,010/day
 
-* **Total:** Your total ascension count. This is calculated from the `foreverpurchases` variable + 399.
+**Progress:**
 
-* **Current session time:** The amount of time the current session has been running. This starts at 0 and is displayed in days, hours, minutes, and seconds.
+161,786 / 250,000 (64.71%)
+█████████████░░░░░░░
+88,214 remaining
 
-* **Total runtime:** The persistent amount of time the macro has been running. This increases every time the macro runs and is saved whenever an ascension occurs.
+**Runtime**
 
-* **Uptime:** The percentage of the session where the macro successfully completed an ascension. This is calculated using successful ascensions compared to successful ascensions + breaks.
+Session: 0d 16h 56m 01s
+Total: 3d 11h 35m 02s
 
-* **EST Daily pace:** The estimated number of ascensions the macro could complete in 24 hours based on the current session's average T/A. This calculation uses the full-precision T/A rather than the rounded T/A displayed above.
+**ETA**
 
-* **131,722/250,000:** Your current total ascensions / your configured ascension goal.
+09/05/2026 2:00 AM
+9d 18h 58m 55s remaining
 
-* **(118,278 left):** The number of ascensions remaining until the configured goal is reached.
+**V2.1.1 EXP, 08/26/2026 7:01:53 AM**
 
-* **T/R:** Time per Run. Shows how long it took the macro to reach the current ascension. This can be useful for diagnosing potential network instability or unusually slow ascensions.
+Ascension successful: The macro successfully completed an ascension.
 
-* **ETA:** The estimated date and time when the configured ascension goal will be reached. The time is displayed using your device's local timezone.
+Time per Ascension: Average time taken per ascension in the current session.
 
-* **14d 00h 18m 56s:** The estimated amount of time remaining until the configured ascension goal is reached, based on the current T/A.
+Time this Ascension: How long the most recently completed ascension took.
 
-* **Current time:** Your device's current local date and time. The format is Month / Day / Year Hours : Minutes : Seconds AM/PM.
+Uptime: Percentage of the session where the macro was actively running.
+
+Daily pace: Estimated number of ascensions the macro can complete per day.
+
+Progress: Current ascension count, goal, percentage completed, and remaining ascensions.
+
+Session: How long the current macro session has been running.
+
+Total: Total runtime across sessions, based on `totalruntime`.
+
+ETA: Estimated time and date when the configured goal will be reached.
+
+Version: Current macro version and the time the webhook was generated.
+
+Time formats are in MONTH / DAY / YEAR HH:MM:SS AM/PM
+
+24 hour formats may be supported in a later update
 
 You can join the Discord here: https://discord.gg/SXeWNaZR9J
-
